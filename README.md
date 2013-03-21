@@ -2,13 +2,14 @@ jquery-ace
 ==========
 
 Adapter to use Ace with jQuery.
-This jquery plugin allows for easy replacement of textarea with an Ace editor instance (http://ace.ajax.org/)
+This jquery plugin allows for easy replacement of a textarea with an Ace editor instance (http://ace.ajax.org/)
 
 Simply include ace and jquery, then intialize an editor by calling:
 
-$(selector).ace();
+    $(selector).ace();
 
 Optionally pass in a configuration object. The default looks as follows:
+
     {
         'mode' : 'html',
         'tabSize' : 4,

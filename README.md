@@ -28,20 +28,15 @@ For meaning of most configuration parameters check the ace documentation (http:/
 On instantiation the plugin creates 3 divs:
 before:
 
-root
-|
-- textarea
+-root
+-- textarea
 
 after:
 root
-|
 - textarea[hidden]
-|
-- div (class = wrapperClass)
-  |
-  - [div toolbarWrapper]
-  |
-  - div editorWrapper (id = textarea.id + idPostfix)
+-- div (class = wrapperClass)
+--- [div toolbarWrapper]
+--- div editorWrapper (id = textarea.id + idPostfix)
 
 
 An id on the textarea is, at this time, a hard requirement!

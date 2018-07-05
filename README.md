@@ -12,13 +12,18 @@ Optionally pass in a configuration object. The default looks as follows:
 
     {
         'mode' : 'html',
+        'theme' : 'tomorrow',
+        'autoScrollEditorIntoView': false,
         'tabSize' : 4,
         'softTabs' : true,
         'highlightActiveLine' : true,
+        //
         'idPostfix' : '__ace',
         'toolbarCallback' : null,
         'wrapperClass' : 'jquery-ace-wrapper'
     }
+
+You can also supply other options for ace.editor, such as minLines, maxLines etc.
 
 If you supply set toolbarCallback to a function, the function will be called with 2 arguments:
 - the div where the toolbar should be created

@@ -11,6 +11,8 @@
                 'tabSize' : 4,
                 'softTabs' : true,
                 'highlightActiveLine' : true,
+                'autoScrollEditorIntoView' : false,
+                //
                 'idPostfix' : '__ace',
                 'toolbarCallback' : null,
                 'wrapperClass' : 'jquery-ace-wrapper'
@@ -30,12 +32,14 @@
                     var w = textarea.width();
                     textarea.hide();
 
-                    var wrapperDiv = $('<div/>').insertAfter(textarea).height(h).width(w).addClass(config.wrapperClass);
+                    var wrapperDiv = $('<div/>').insertAfter(textarea).addClass(config.wrapperClass);//.height(h).width(w);
                     // Check if we have a toolbar.
+                    if (!config.autoScrollEditorIntoView){
+                        wrapperDiv.height(h);
+                        wrapperDiv.width(w);
+                    }
 
-
-
-                    var editorDiv = $('<div/>').appendTo(wrapperDiv).attr('id', id).height(h).width(w);
+                    var editorDiv = $('<div/>').appendTo(wrapperDiv).attr('id', id);//.height(h).width(w);
                     var editor = ace.edit(id);
                     if (typeof config.toolbarCallback == 'function')
                     {
@@ -57,15 +61,25 @@
                     };
                     var session = editor.getSession();
 
-                    session.setMode('ace/mode/' + config.mode);
-                    session.setTabSize(config.tabSize);
-                    session.setUseSoftTabs(config.softTabs);
+                    var opts = $.extend({},config);
+                    delete opts.softTabs;
+                    delete opts.idPostfix;
+                    delete opts.toolbarCallback;
+                    delete opts.wrapperClass;
+                    if (opts.mode.indexOf('ace/mode/') == -1){
+                        opts.mode = 'ace/mode/'+opts.mode; // backwards compatible
+                    }
+                    if (opts.theme.indexOf('ace/theme/') == -1){
+                        opts.theme = 'ace/theme/'+opts.theme; // backwards compatible
+                    }
+
+                    editor.setOptions(opts);
+
                     textarea.data('ace', data);
                     textarea.ace('val', textarea.val());
-                    editor.setHighlightActiveLine(config.highlightActiveLine);
                     editor.clearSelection();
-                    session.on('change', function(e) {
-                        textarea.val(e.target.getValue());
+                    session.on('change', function(e) { 
+                        textarea.val(session.getValue());
                     });
 
                 }
@@ -113,6 +127,3 @@
 
 
 })(jQuery);
-
-
-
